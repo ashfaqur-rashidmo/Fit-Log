@@ -3,11 +3,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { usePathname } from "next/navigation";
+import { PlanContext } from "@/Context/PlanContext";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { todayPlan, savedPlan } = useContext(PlanContext);
 
   return (
     <nav className="px-3 sm:px-6 lg:px-10 py-3 border-b shadow-md">
@@ -55,11 +57,13 @@ const Navbar = () => {
         <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base whitespace-nowrap">
 
           <p className="text-[#9CA3AF]">
-            plan <span>0</span>
+            plan <span>
+              {todayPlan.length}
+            </span>
           </p>
 
           <p className="text-[#9CA3AF]">
-            saved <span>0</span>
+            saved <span>{savedPlan.length}</span>
           </p>
 
         </div>

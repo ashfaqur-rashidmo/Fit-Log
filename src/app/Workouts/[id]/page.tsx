@@ -195,6 +195,8 @@ import React from "react";
 import { IoSaveOutline } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import { notFound } from "next/navigation";
+import AddToPlanButton from "@/components/Buttons/AddToPlanButton";
+import AddToSaveButton from "@/components/Buttons/AddToSaveButton";
 
 type Props = {
   params: Promise<{
@@ -226,7 +228,7 @@ const CardDetailPage = async ({ params }: Props) => {
 
   const workout = gymData.find(
     (workout) => String(workout.id) === String(id)
-  );
+  ) as GymCardTypes;
 
   if (!workout) {
     notFound();
@@ -389,21 +391,9 @@ const CardDetailPage = async ({ params }: Props) => {
           {/*  ACTION BUTTONS */}
           <div className="mt-5 flex flex-wrap gap-2">
 
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 rounded-md bg-[#C2F800] px-4 py-2 text-[11px] font-semibold text-[#0F1115] transition hover:bg-[#B7F000]"
-            >
-              <SlCalender className="text-xs" />
-              Add to today's plan
-            </button>
+            <AddToPlanButton workout={workout}/>
 
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 rounded-md border border-[#374151] px-4 py-2 text-[11px] text-[#D1D5DB] transition hover:bg-[#1A2312]"
-            >
-              <IoSaveOutline className="text-xs" />
-              Save for later
-            </button>
+            <AddToSaveButton workout={workout}/>
 
           </div>
 
