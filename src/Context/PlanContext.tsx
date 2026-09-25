@@ -3,7 +3,6 @@
 import { GymCardTypes } from '@/types/JymCardTypes';
 import React, { createContext, ReactNode, useState, useEffect, Dispatch, SetStateAction } from 'react';
 
-export const PlanContext = createContext({});
 
 interface PlanContextType {
   todayPlan: GymCardTypes[];
@@ -12,6 +11,16 @@ interface PlanContextType {
   setSavedPlan: Dispatch<SetStateAction<GymCardTypes[]>>;
   loading: boolean;
 }
+
+export const PlanContext = createContext<PlanContextType>({
+  todayPlan: [],
+  savedPlan: [],
+  setTodayPlan: () => {},
+  setSavedPlan: () => {},
+  loading: true,
+});
+
+
 
 const PlanContextProvider = ({children}: {children : ReactNode}) => {
 
