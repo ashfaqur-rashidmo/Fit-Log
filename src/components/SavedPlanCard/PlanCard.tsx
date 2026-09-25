@@ -14,7 +14,7 @@ type PlanCardProps = {
   plan: GymCardTypes;
   isTodayPlan: boolean;
   onRemove: (id: number) => void;
-  onMarkAsDone: (id: number) => void;
+  onMarkAsDone ?: (id: number) => void;
 };
 
 const PlanCard = ({

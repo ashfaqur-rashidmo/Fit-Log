@@ -4,7 +4,7 @@
 import { PlanContext } from "@/Context/PlanContext";
 import { GymCardTypes } from "@/types/JymCardTypes";
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import PlanCard from "@/components/SavedPlanCard/PlanCard";
 import { toast } from "react-toastify";
 import { FiChevronDown } from "react-icons/fi";
@@ -69,22 +69,29 @@ const MyPlanPage = () => {
 
   // remove 
 
-   const handleRemoveFromTodayPlan = (id: number) => { 
-    const workout = todayPlan.find((item) => item.id === id); 
-    setTodayPlan( 
-      todayPlan.filter((item) => item.id !== id) ); 
-      if (workout) 
-        { 
-          toast.success( `${workout.name} removed from today's plan!` ); 
-        } };
+const handleRemoveFromTodayPlan = (id: number) => {
+  const workout = todayPlan.find((item) => item.id === id);
 
-   
-    const handleRemoveSavedWorkout = (id: number) => { 
-    const workout = savedPlan.find((item) => item.id === id); 
-    setSavedPlan( savedPlan.filter((item) => item.id !== id) ); 
-    if (workout) { 
-      toast.success( `${workout.name} removed from saved plan!` ); 
-    } };
+  setTodayPlan((prevPlan) =>
+    prevPlan.filter((item) => item.id !== id)
+  );
+
+  if (workout) {
+    toast.success(`${workout.name} removed from today's plan!`);
+  }
+};
+
+const handleRemoveSavedWorkout = (id: number) => {
+  const workout = savedPlan.find((item) => item.id === id);
+
+  setSavedPlan((prevPlan) =>
+    prevPlan.filter((item) => item.id !== id)
+  );
+
+  if (workout) {
+    toast.success(`${workout.name} removed from saved plan!`);
+  }
+};
 
     
   const handleMarkAsDone = (id: number) => {
@@ -93,15 +100,12 @@ const MyPlanPage = () => {
   if (!workout) {
     return;
   }
-   
-  
+
   setTodayPlan((prevPlan) =>
     prevPlan.filter((item) => item.id !== id)
   );
-  
-  toast.success(
-    `${workout.name} marked as done!`
-  );
+
+  toast.success(`${workout.name} marked as done!`);
 };
 
   return (

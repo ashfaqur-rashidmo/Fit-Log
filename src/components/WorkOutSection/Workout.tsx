@@ -1,8 +1,9 @@
 import React from 'react';
 import WorkOutCard from '../WorkOutCard/WorkOutCard';
+import { GymCardTypes } from '@/types/JymCardTypes';
 
 
-const getGym = async () => {
+const getGym = async (): Promise<GymCardTypes[]> => {
     const res = await fetch('https://api.abcz.workers.dev/api/fitlog');
 
     if (!res.ok) {

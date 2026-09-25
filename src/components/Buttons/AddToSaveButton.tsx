@@ -14,7 +14,6 @@ const AddToSaveButton = ({
   const { savedPlan, setSavedPlan } = useContext(PlanContext);
 
   const handleSave = () => {
-    // Prevent duplicate workout
     const alreadySaved = savedPlan.some(
       (item) => item.id === workout.id
     );
@@ -24,11 +23,9 @@ const AddToSaveButton = ({
       return;
     }
 
-    setSavedPlan([...savedPlan, workout]);
+    setSavedPlan((prevPlan) => [...prevPlan, workout]);
 
-    toast.success(`${workout.name} saved for later!`, {
-     
-    });
+    toast.success(`${workout.name} saved for later!`);
   };
 
   return (

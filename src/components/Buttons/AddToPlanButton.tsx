@@ -6,12 +6,14 @@ import React, { useContext } from "react";
 import { SlCalender } from "react-icons/sl";
 import { toast } from "react-toastify";
 
-const AddToPlanButton = ({workout}: {workout: GymCardTypes}) => {
-    
+const AddToPlanButton = ({
+  workout,
+}: {
+  workout: GymCardTypes;
+}) => {
   const { todayPlan, setTodayPlan } = useContext(PlanContext);
 
   const handleAddToPlan = () => {
-    // Prevent duplicate workout
     const alreadyAdded = todayPlan.some(
       (item) => item.id === workout.id
     );
@@ -21,11 +23,9 @@ const AddToPlanButton = ({workout}: {workout: GymCardTypes}) => {
       return;
     }
 
-    setTodayPlan([...todayPlan, workout]);
+    setTodayPlan((prevPlan) => [...prevPlan, workout]);
 
-    toast.success(`${workout.name} added to today's plan!`, {
-      
-    });
+    toast.success(`${workout.name} added to today's plan!`);
   };
 
   return (
