@@ -27,13 +27,7 @@ const AddToSaveButton = ({
     setSavedPlan([...savedPlan, workout]);
 
     toast.success(`${workout.name} saved for later!`, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      theme: "dark",
+     
     });
   };
 

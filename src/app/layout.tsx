@@ -35,7 +35,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         
         {children}
 
-        <ToastContainer />
+        <ToastContainer 
+      position = "top-right"
+      autoClose = {3000}
+      hideProgressBar = {false}
+      closeOnClick =  {true}
+      pauseOnHover =  {true}
+      draggable =  {true}
+      theme =  "dark"
+    
+        />
 
         
         <Footer />

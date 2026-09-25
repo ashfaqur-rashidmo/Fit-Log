@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Banner = () => {
@@ -11,7 +12,7 @@ const Banner = () => {
                 <h1 className='text-[#FFFFFF] font-bold text-5xl text-uppercsse'>TRAIN WITH INTENT. LOG <br /> EVERY SET.</h1>
                 <p className='text-[#9CA3AF]'>FitLog is a dark, no-nonsense gym companion: pick a lift, lock it <br /> into today's plan, and watch the week's work add up.</p>
                 
-                <button className='bg-[#C2F800] text-[#000000] px-3 py-1.5 rounded-md text-md font-bold'>BROWSE WORKOUTS</button>
+                <Link href={"#library"} className='bg-[#C2F800] text-[#000000] px-3 py-1.5 rounded-md text-md font-bold'>BROWSE WORKOUTS</Link>
             </div>
 
             <div>
