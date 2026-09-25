@@ -1,134 +1,315 @@
+
+
 // "use client";
-// import  { PlanContext } from '@/Context/PlanContext';
-// import { GymCardTypes } from '@/types/JymCardTypes';
-// import React, { useContext, useState } from 'react';
 
-// const myPlanPage = () => {
+// import { PlanContext } from "@/Context/PlanContext";
+// import { GymCardTypes } from "@/types/JymCardTypes";
+// import Link from "next/link";
+// import React, { useContext, useState } from "react";
+// import PlanCard from "@/components/SavedPlanCard/PlanCard";
 
-//     const [sortBy, setSortBy] = useState<"Duration" | "Calories" | "rating">("Duration");
-//     const {todayPlan, savedPlan} = useContext(PlanContext);
+// const MyPlanPage = () => {
+//   const [sortBy, setSortBy] = useState<
+//     "Duration" | "Calories" | "rating"
+//   >("Duration");
 
-//     console.log("SortBy: ",sortBy);
-//     console.log("Today's Plan: ",todayPlan);
-//     console.log("Saved Plan: ",savedPlan);
+//   const {
+//     todayPlan,
+//     savedPlan,
+//     setTodayPlan,
+//     setSavedPlan,
+//   } = useContext(PlanContext);
 
-//    const sortPlan = (plan: GymCardTypes[]) => {
-//    const sortedPlans = [...plan];
+//   const [activeTab, setActiveTab] = useState<"today" | "saved">(
+//     "today"
+//   );
 
-//    if (sortBy === "Duration") {
-//      sortedPlans.sort((a, b) => b.duration - a.duration);
-//    } else if (sortBy === "Calories") {
-//      sortedPlans.sort((a, b) => b.caloriesBurned - a.caloriesBurned);
-//    }
-//     else if (sortBy === "rating") {
-//         sortedPlans.sort((a, b) => b.rating - a.rating);
+//   // ================= CURRENT PLAN =================
+
+//   const currentPlan =
+//     activeTab === "today" ? todayPlan : savedPlan;
+
+//   // ================= STATISTICS =================
+
+//   const exercises = currentPlan.length;
+
+//   const minutes = currentPlan.reduce(
+//     (total, workout) => total + workout.duration,
+//     0
+//   );
+
+//   const calories = currentPlan.reduce(
+//     (total, workout) => total + workout.caloriesBurned,
+//     0
+//   );
+
+//   // ================= SORT FUNCTION =================
+
+//   const sortPlans = (plans: GymCardTypes[]) => {
+//     const sortedPlans = [...plans];
+
+//     if (sortBy === "Duration") {
+//       sortedPlans.sort((a, b) => a.duration - b.duration);
+//     } else if (sortBy === "Calories") {
+//       sortedPlans.sort(
+//         (a, b) => a.caloriesBurned - b.caloriesBurned
+//       );
+//     } else if (sortBy === "rating") {
+//       sortedPlans.sort((a, b) => a.rating - b.rating);
 //     }
+
 //     return sortedPlans;
 //   };
 
-//   const sortedTodayPlan = sortPlan(todayPlan);
-//   const sortedSavedPlan = sortPlan(savedPlan);
+//   // ================= SORT BOTH PLANS =================
 
-//   console.log("Sorted Today's Plan: ",sortedTodayPlan);
-//   console.log("Sorted Saved Plan: ",sortedSavedPlan);
+//   const sortedTodayPlan = sortPlans(todayPlan);
+//   const sortedSavedPlan = sortPlans(savedPlan);
 
-//     return (
-//         <div className='px-10 py-4 sm:px-6 lg:px-8'>
-           
-//            <div className='mb-4 space-y-2 sm:space-y-3 lg:space-y-2'>
-//             <h2 className='text-[#FFFFFF] text-3xl uppercase'>my plan</h2>
-//             <p className='text-[#8A92A0] text-sm'>Cap of five lifts for today. Finish them, then load more.</p>
+//   // ================= REMOVE =================
 
-//             <div className='mt-4 flex items-center justify-left gap-96 rounded-xl border border-[#242933] bg-[#13161D] px-4 py-2.5'>
-
-//                 <div>
-//                 <p className='text-[#8A92A0]'>Exercises</p>
-//                 <span className='text-[#CCFF00]'>0</span>
-//                 </div>
-                
-                 
-//                  <div>
-//                 <p className='text-[#8A92A0]'>Minutes</p>
-//                 <span className='text-[#FFFFFF]'>0</span>
-//                  </div>
-                
-
-//                 <div>
-//                 <p className='text-[#8A92A0]'>Calories</p>
-//                 <span className='text-[#FFFFFF]'>0</span>
-//                 </div>
-
-                
-//             </div>
-//            </div>
-
-//             {/* name of each tab group should be unique */}
-          
-// <div className="tabs tabs-border">
-//   <input type="radio" 
-//   name="my_tabs_2" 
-//   className="tab" 
-//   aria-label="Today's Plan" />
-
-//   <div className="tab-content border-base-300 bg-base-100 p-10">
-//     {
-//         sortedTodayPlan.length > 0 ? (
-//             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-//             {
-//                 sortedTodayPlan.map((plan, index) => (
-//                     <div key={index} className='rounded-xl border border-[#242933] bg-[#13161D] p-4'>
-//                         <h3 className='text-[#FFFFFF] text-lg font-semibold'>{plan.name}</h3>
-//                         <p className='text-[#8A92A0] text-sm'>Duration: {plan.duration} mins</p>
-//                         <p className='text-[#8A92A0] text-sm'>Calories Burned: {plan.caloriesBurned}</p>
-//                         <p className='text-[#8A92A0] text-sm'>Rating: {plan.rating}</p>
-//                     </div>
-//                 ))
-//             }
-//             </div>
-//         ) : (
-//             <p className='text-[#8A92A0]'>No exercises in today's plan.</p>
-//         )
-//     }
-//     </div>
-
-//   <input type="radio" 
-//   name="my_tabs_2" 
-//   className="tab" 
-//   aria-label="Tab 2" 
-//   defaultChecked />
-
-//   <div className="tab-content border-base-300 bg-base-100 p-10">
-//     {
-//         sortedSavedPlan.length > 0 ? (
-//             <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-//             {
-//                 sortedSavedPlan.map((plan, index) => (
-//                     <div key={index} className='rounded-xl border border-[#242933] bg-[#13161D] p-4'>
-//                         <h3 className='text-[#FFFFFF] text-lg font-semibold'>{plan.name}</h3>
-//                         <p className='text-[#8A92A0] text-sm'>Duration: {plan.duration} mins</p>
-//                         <p className='text-[#8A92A0] text-sm'>Calories Burned: {plan.caloriesBurned}</p>
-//                         <p className='text-[#8A92A0] text-sm'>Rating: {plan.rating}</p>
-//                     </div>
-//                 ))
-//             }
-//             </div>
-//         ) : (
-//             <p className='text-[#8A92A0]'>No exercises saved for later.</p>
-//         )
-//     }
-//     </div>
-
-  
-// </div>
-//         </div>
+//   const handleRemoveFromTodayPlan = (id: number) => {
+//     setTodayPlan(
+//       todayPlan.filter((workout) => workout.id !== id)
 //     );
+//   };
+
+//   const handleRemoveSavedWorkout = (id: number) => {
+//     setSavedPlan(
+//       savedPlan.filter((workout) => workout.id !== id)
+//     );
+//   };
+
+//   return (
+//     <div className="px-4 py-4 sm:px-6 lg:px-8">
+
+//       {/* ================= HEADER ================= */}
+
+//       <div className="mb-4 space-y-2">
+//         <h2 className="text-3xl uppercase text-white">
+//           My Plan
+//         </h2>
+
+//         <p className="text-sm text-[#8A92A0]">
+//           Cap of five lifts for today. Finish them, then load more.
+//         </p>
+
+//         {/* ================= STATISTICS ================= */}
+
+//         <div className="mt-4 grid grid-cols-3 rounded-xl border border-[#242933] bg-[#13161D] px-4 py-2.5">
+
+//           {/* Exercises */}
+//           <div>
+//             <p className="text-sm text-[#8A92A0]">
+//               Exercises
+//             </p>
+
+//             <span className="text-[#CCFF00]">
+//               {exercises}
+//             </span>
+//           </div>
+
+//           {/* Minutes */}
+//           <div>
+//             <p className="text-sm text-[#8A92A0]">
+//               Minutes
+//             </p>
+
+//             <span className="text-white">
+//               {minutes}
+//             </span>
+//           </div>
+
+//           {/* Calories */}
+//           <div>
+//             <p className="text-sm text-[#8A92A0]">
+//               Calories
+//             </p>
+
+//             <span className="text-white">
+//               {calories}
+//             </span>
+//           </div>
+
+//         </div>
+//       </div>
+
+//       {/* ================= TABS + SORT ================= */}
+
+//       <div className="w-full">
+
+//         {/* TAB HEADER */}
+
+//         <div className="flex items-center justify-between border-b border-[#242933]">
+
+//           {/* Tabs */}
+//           <div className="flex">
+
+//             <button
+//               type="button"
+//               onClick={() => setActiveTab("today")}
+//               className={`border-b-2 px-4 py-3 text-sm font-medium transition ${
+//                 activeTab === "today"
+//                   ? "border-[#CCFF00] text-[#CCFF00]"
+//                   : "border-transparent text-[#8A92A0] hover:text-white"
+//               }`}
+//             >
+//               Today's Plan
+//             </button>
+
+//             <button
+//               type="button"
+//               onClick={() => setActiveTab("saved")}
+//               className={`border-b-2 px-4 py-3 text-sm font-medium transition ${
+//                 activeTab === "saved"
+//                   ? "border-[#CCFF00] text-[#CCFF00]"
+//                   : "border-transparent text-[#8A92A0] hover:text-white"
+//               }`}
+//             >
+//               Saved
+//             </button>
+
+//           </div>
+
+//           {/* SORT */}
+
+//           <div className="flex items-center gap-2 pb-2">
+//             <label
+//               htmlFor="sort"
+//               className="hidden text-sm text-[#8A92A0] sm:block"
+//             >
+//               Sort by
+//             </label>
+
+//             <select
+//               id="sort"
+//               value={sortBy}
+//               onChange={(e) =>
+//                 setSortBy(
+//                   e.target.value as
+//                     | "Duration"
+//                     | "Calories"
+//                     | "rating"
+//                 )
+//               }
+//               className="rounded-lg border border-[#242933] bg-[#13161D] px-3 py-2 text-sm text-white outline-none focus:border-[#CCFF00]"
+//             >
+//               <option value="Duration">
+//                 Duration
+//               </option>
+
+//               <option value="Calories">
+//                 Calories
+//               </option>
+
+//               <option value="rating">
+//                 Rating
+//               </option>
+//             </select>
+//           </div>
+
+//         </div>
+
+//         {/* ================= CONTENT ================= */}
+
+//         <div className="border-[#242933] bg-[#0F1115] p-5 sm:p-8">
+
+//           {/* ================= TODAY ================= */}
+
+//           {activeTab === "today" && (
+//             <>
+//               {sortedTodayPlan.length > 0 ? (
+
+//                 <div className="grid grid-cols-1 gap-4">
+
+//                   {sortedTodayPlan.map((plan) => (
+//                     <PlanCard
+//                       key={plan.id}
+//                       plan={plan}
+//                       isTodayPlan={true}
+//                       onRemove={handleRemoveFromTodayPlan}
+//                     />
+//                   ))}
+
+//                 </div>
+
+//               ) : (
+
+//                 <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
+
+//                   <h3 className="text-xl font-bold uppercase tracking-wide text-white">
+//                     Nothing Here Yet
+//                   </h3>
+
+//                   <p className="mt-2 max-w-md text-sm text-[#8A92A0]">
+//                     Browse the library and add a lift to get today moving.
+//                   </p>
+
+//                   <Link
+//                     href="/Workouts"
+//                     className="mt-5 rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-[#0F1115] transition hover:bg-[#B8E600]"
+//                   >
+//                     Go to workouts
+//                   </Link>
+
+//                 </div>
+
+//               )}
+//             </>
+//           )}
+
+//           {/* ================= SAVED ================= */}
+
+//           {activeTab === "saved" && (
+//             <>
+//               {sortedSavedPlan.length > 0 ? (
+
+//                 <div className="grid grid-cols-1 gap-4">
+
+//                   {sortedSavedPlan.map((plan) => (
+//                     <PlanCard
+//                       key={plan.id}
+//                       plan={plan}
+//                       isTodayPlan={false}
+//                       onRemove={handleRemoveSavedWorkout}
+//                     />
+//                   ))}
+
+//                 </div>
+
+//               ) : (
+
+//                 <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
+
+//                   <h3 className="text-xl font-bold uppercase tracking-wide text-white">
+//                     Nothing Here Yet
+//                   </h3>
+
+//                   <p className="mt-2 max-w-md text-sm text-[#8A92A0]">
+//                     Browse the library and add a lift to get today moving.
+//                   </p>
+
+//                   <Link
+//                     href="/Workouts"
+//                     className="mt-5 rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-[#0F1115] transition hover:bg-[#B8E600]"
+//                   >
+//                     Go to workouts
+//                   </Link>
+
+//                 </div>
+
+//               )}
+//             </>
+//           )}
+
+//         </div>
+
+//       </div>
+//     </div>
+//   );
 // };
 
-// export default myPlanPage;
-
-
-
-
+// export default MyPlanPage;
 
 
 
@@ -136,41 +317,87 @@
 
 import { PlanContext } from "@/Context/PlanContext";
 import { GymCardTypes } from "@/types/JymCardTypes";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
-import { FiClock } from "react-icons/fi";
-import { PiFire } from "react-icons/pi";
-import { FiStar } from "react-icons/fi";
+import PlanCard from "@/components/SavedPlanCard/PlanCard";
 
 const MyPlanPage = () => {
   const [sortBy, setSortBy] = useState<
     "Duration" | "Calories" | "rating"
   >("Duration");
 
-  const { todayPlan, savedPlan } = useContext(PlanContext);
+  const {
+    todayPlan,
+    savedPlan,
+    setTodayPlan,
+    setSavedPlan,
+  } = useContext(PlanContext);
 
-  const sortPlan = (plan: GymCardTypes[]) => {
-    const sortedPlans = [...plan];
+  const [activeTab, setActiveTab] = useState<"today" | "saved">(
+    "today"
+  );
+
+  // ================= CURRENT PLAN =================
+
+  const currentPlan =
+    activeTab === "today" ? todayPlan : savedPlan;
+
+  // ================= STATISTICS =================
+
+  const exercises = currentPlan.length;
+
+  const minutes = currentPlan.reduce(
+    (total, workout) => total + workout.duration,
+    0
+  );
+
+  const calories = currentPlan.reduce(
+    (total, workout) => total + workout.caloriesBurned,
+    0
+  );
+
+  // ================= SORT FUNCTION =================
+
+  const sortPlans = (plans: GymCardTypes[]) => {
+    const sortedPlans = [...plans];
 
     if (sortBy === "Duration") {
-      sortedPlans.sort((a, b) => b.duration - a.duration);
+      sortedPlans.sort((a, b) => a.duration - b.duration);
     } else if (sortBy === "Calories") {
       sortedPlans.sort(
-        (a, b) => b.caloriesBurned - a.caloriesBurned
+        (a, b) => a.caloriesBurned - b.caloriesBurned
       );
     } else if (sortBy === "rating") {
-      sortedPlans.sort((a, b) => b.rating - a.rating);
+      sortedPlans.sort((a, b) => a.rating - b.rating);
     }
 
     return sortedPlans;
   };
 
-  const sortedTodayPlan = sortPlan(todayPlan);
-  const sortedSavedPlan = sortPlan(savedPlan);
+  // ================= SORT BOTH PLANS =================
+
+  const sortedTodayPlan = sortPlans(todayPlan);
+  const sortedSavedPlan = sortPlans(savedPlan);
+
+  // ================= REMOVE =================
+
+  const handleRemoveFromTodayPlan = (id: number) => {
+    setTodayPlan(
+      todayPlan.filter((workout) => workout.id !== id)
+    );
+  };
+
+  const handleRemoveSavedWorkout = (id: number) => {
+    setSavedPlan(
+      savedPlan.filter((workout) => workout.id !== id)
+    );
+  };
 
   return (
     <div className="px-4 py-4 sm:px-6 lg:px-8">
+
+      {/* ================= HEADER ================= */}
+
       <div className="mb-4 space-y-2">
         <h2 className="text-3xl uppercase text-white">
           My Plan
@@ -180,15 +407,15 @@ const MyPlanPage = () => {
           Cap of five lifts for today. Finish them, then load more.
         </p>
 
-        {/* Statistics */}
+        {/* ================= STATISTICS ================= */}
+
         <div className="mt-4 grid grid-cols-3 rounded-xl border border-[#242933] bg-[#13161D] px-4 py-2.5">
           <div>
             <p className="text-sm text-[#8A92A0]">
               Exercises
             </p>
-
             <span className="text-[#CCFF00]">
-              {todayPlan.length}
+              {exercises}
             </span>
           </div>
 
@@ -196,12 +423,8 @@ const MyPlanPage = () => {
             <p className="text-sm text-[#8A92A0]">
               Minutes
             </p>
-
             <span className="text-white">
-              {todayPlan.reduce(
-                (total, plan) => total + plan.duration,
-                0
-              )}
+              {minutes}
             </span>
           </div>
 
@@ -209,164 +432,163 @@ const MyPlanPage = () => {
             <p className="text-sm text-[#8A92A0]">
               Calories
             </p>
-
             <span className="text-white">
-              {todayPlan.reduce(
-                (total, plan) => total + plan.caloriesBurned,
-                0
-              )}
+              {calories}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="tabs tabs-border w-full">
+      {/* ================= TABS + SORT ================= */}
 
-        {/*  TODAY'S PLAN TAB  */}
-        <input
-          type="radio"
-          name="my_tabs_2"
-          className="tab text-[#8A92A0] checked:text-[#CCFF00]"
-          aria-label="Today's Plan"
-          defaultChecked
-        />
+      <div className="w-full">
 
-        <div className="tab-content border-[#242933] bg-[#0F1115] p-5 sm:p-8">
+        {/* TAB HEADER */}
 
-          {sortedTodayPlan.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-1">
+        <div className="flex flex-col gap-2 border-b border-[#242933] sm:flex-row sm:items-center sm:justify-between">
 
-              {sortedTodayPlan.map((plan) => (
-                <div
-                  key={plan.id}
-                  className="flex rounded-xl border border-[#242933] bg-[#13161D] p-4"
-                >
-                    
-                        <Image src={plan.image} alt={plan.name} width={100} height={100} />
-                  
-                  <div className="ml-4 flex flex-col justify-center">
+          {/* Tabs */}
 
-                    
-                  <h3 className="text-lg font-semibold text-white">
-                    {plan.name}
-                  </h3>
-                  
-                  <p className="text-sm text-[#8A92A0]">
-                    {plan.equipment}
-                  </p>
+          <div className="flex">
+            <button
+              type="button"
+              onClick={() => setActiveTab("today")}
+              className={`border-b-2 px-4 py-3 text-sm font-medium transition ${
+                activeTab === "today"
+                  ? "border-[#CCFF00] text-[#CCFF00]"
+                  : "border-transparent text-[#8A92A0] hover:text-white"
+              }`}
+            >
+              Today's Plan
+            </button>
 
-                    <div className="mt-2 space-y-1 flex flex-row">
-                     <FiClock className="text-[#CCFF00] mr-1" />
-                    <p className="text-sm text-[#8A92A0]">
-                     {plan.duration} mins
-                  </p>
+            <button
+              type="button"
+              onClick={() => setActiveTab("saved")}
+              className={`border-b-2 px-4 py-3 text-sm font-medium transition ${
+                activeTab === "saved"
+                  ? "border-[#CCFF00] text-[#CCFF00]"
+                  : "border-transparent text-[#8A92A0] hover:text-white"
+              }`}
+            >
+              Saved
+            </button>
+          </div>
 
-                  <p className="text-sm text-[#8A92A0]">
-                    <PiFire className="text-[#CCFF00]"/> {plan.caloriesBurned} Kcal
-                  </p>
+          {/* SORT */}
 
-                  <p className="text-sm text-[#8A92A0]">
-                    <FiStar className="text-[#CCFF00]"/> {plan.rating}
-                  </p>
-                    </div>
+          <div className="flex items-center justify-between gap-2 pb-2 sm:justify-end">
+            <label
+              htmlFor="sort"
+              className="text-sm text-[#8A92A0]"
+            >
+              Sort by
+            </label>
 
-                 
-                    </div>
-                    
-                    
+            <select
+              id="sort"
+              value={sortBy}
+              onChange={(e) =>
+                setSortBy(
+                  e.target.value as
+                    | "Duration"
+                    | "Calories"
+                    | "rating"
+                )
+              }
+              className="rounded-lg border border-[#242933] bg-[#13161D] px-3 py-2 text-sm text-white outline-none focus:border-[#CCFF00]"
+            >
+              <option value="Duration">
+                Duration
+              </option>
 
-                </div>
-              ))}
+              <option value="Calories">
+                Calories
+              </option>
 
-            </div>
-          ) : (
-
-            /* Empty State */
-            <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
-
-              <h3 className="text-xl font-bold uppercase tracking-wide text-white">
-                Nothing Here Yet
-              </h3>
-
-              <p className="mt-2 max-w-md text-sm text-[#8A92A0]">
-                Browse the library and add a lift to get today moving.
-              </p>
-
-              <Link
-                href="/Workouts"
-                className="mt-5 rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-[#0F1115] transition hover:bg-[#B8E600]"
-              >
-                Go to workouts
-              </Link>
-
-            </div>
-          )}
-
+              <option value="rating">
+                Rating
+              </option>
+            </select>
+          </div>
         </div>
 
-        {/*  SAVED TAB  */}
-        <input
-          type="radio"
-          name="my_tabs_2"
-          className="tab text-[#8A92A0] checked:text-[#CCFF00]"
-          aria-label="Saved"
-        />
+        {/* ================= CONTENT ================= */}
 
-        <div className="tab-content border-[#242933] bg-[#0F1115] p-5 sm:p-8">
+        <div className="border-[#242933] bg-[#0F1115] p-3 sm:p-5 md:p-8">
 
-          {sortedSavedPlan.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {/* ================= TODAY ================= */}
 
-              {sortedSavedPlan.map((plan) => (
-                <div
-                  key={plan.id}
-                  className="rounded-xl border border-[#242933] bg-[#13161D] p-4"
-                >
-                  <h3 className="text-lg font-semibold text-white">
-                    {plan.name}
+          {activeTab === "today" && (
+            <>
+              {sortedTodayPlan.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4">
+                  {sortedTodayPlan.map((plan) => (
+                    <PlanCard
+                      key={plan.id}
+                      plan={plan}
+                      isTodayPlan={true}
+                      onRemove={handleRemoveFromTodayPlan}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
+                  <h3 className="text-xl font-bold uppercase tracking-wide text-white">
+                    Nothing Here Yet
                   </h3>
 
-                  <p className="text-sm text-[#8A92A0]">
-                    Duration: {plan.duration} mins
+                  <p className="mt-2 max-w-md text-sm text-[#8A92A0]">
+                    Browse the library and add a lift to get today moving.
                   </p>
 
-                  <p className="text-sm text-[#8A92A0]">
-                    Calories Burned: {plan.caloriesBurned}
-                  </p>
-
-                  <p className="text-sm text-[#8A92A0]">
-                    Rating: {plan.rating}
-                  </p>
+                  <Link
+                    href="/Workouts"
+                    className="mt-5 rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-[#0F1115] transition hover:bg-[#B8E600]"
+                  >
+                    Go to workouts
+                  </Link>
                 </div>
-              ))}
-
-            </div>
-          ) : (
-
-            /* Empty State */
-            <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
-
-              <h3 className="text-xl font-bold uppercase tracking-wide text-white">
-                Nothing Here Yet
-              </h3>
-
-              <p className="mt-2 max-w-md text-sm text-[#8A92A0]">
-                Browse the library and add a lift to get today moving.
-              </p>
-
-              <Link
-                href="/"
-                className="mt-5 rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-[#0F1115] transition hover:bg-[#B8E600]"
-              >
-                Go to workouts
-              </Link>
-
-            </div>
+              )}
+            </>
           )}
 
-        </div>
+          {/* ================= SAVED ================= */}
 
+          {activeTab === "saved" && (
+            <>
+              {sortedSavedPlan.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4">
+                  {sortedSavedPlan.map((plan) => (
+                    <PlanCard
+                      key={plan.id}
+                      plan={plan}
+                      isTodayPlan={false}
+                      onRemove={handleRemoveSavedWorkout}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex min-h-[300px] flex-col items-center justify-center text-center">
+                  <h3 className="text-xl font-bold uppercase tracking-wide text-white">
+                    Nothing Here Yet
+                  </h3>
+
+                  <p className="mt-2 max-w-md text-sm text-[#8A92A0]">
+                    Browse the library and add a lift to get today moving.
+                  </p>
+
+                  <Link
+                    href="/Workouts"
+                    className="mt-5 rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-[#0F1115] transition hover:bg-[#B8E600]"
+                  >
+                    Go to workouts
+                  </Link>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

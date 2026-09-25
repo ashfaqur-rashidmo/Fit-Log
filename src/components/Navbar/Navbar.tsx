@@ -57,13 +57,15 @@ const Navbar = () => {
         <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm lg:text-base whitespace-nowrap">
 
           <p className="text-[#9CA3AF]">
-            plan <span>
+            plan <span className="bg-[#C2F800] text-[#000000] rounded-full px-0.5 py-0.1 ml-1">
               {todayPlan.length}
             </span>
           </p>
 
           <p className="text-[#9CA3AF]">
-            saved <span>{savedPlan.length}</span>
+            saved <span className="bg-[#2D313B] text-[#D1D5DB] rounded-full px-0.5 py-0.1 ml-1">
+              {savedPlan.length}
+            </span>
           </p>
 
         </div>
