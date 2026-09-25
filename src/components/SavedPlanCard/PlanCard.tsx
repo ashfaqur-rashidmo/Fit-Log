@@ -103,7 +103,7 @@ const PlanCard = ({
         {isTodayPlan && (
           <button
             type="button"
-            onClick={() => onMarkAsDone(plan.id)}
+            onClick={() => onMarkAsDone?.(plan.id)}
             className="flex flex-1 items-center justify-center gap-1 rounded-md border border-[#374151] bg-[#CCFF00] px-3 py-1.5 text-sm text-black hover:bg-[#B8E600] sm:flex-none"
           >
             <MdOutlineDone />
