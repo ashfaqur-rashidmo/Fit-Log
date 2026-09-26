@@ -13,7 +13,7 @@ const Navbar = () => {
   const { todayPlan, savedPlan } = useContext(PlanContext);
 
   return (
-    <nav className="border-b border-[#242933] px-3 py-3 shadow-md sm:px-6 lg:px-10">
+    <nav className="border-b border-[#242933] px-3 py-3 shadow-md sm:px-6 lg:px-10 sticky top-0 z-50 bg-[#0F1115]">
       <div className="flex items-center justify-between">
 
         {/* Logo */}

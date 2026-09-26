@@ -129,7 +129,7 @@ const handleRemoveSavedWorkout = (id: number) => {
             <p className="text-sm text-[#8A92A0]">
               Exercises
             </p>
-            <span className="text-[#CCFF00]">
+            <span className="text-[#CCFF00] text-3xl">
               {exercises}
             </span>
           </div>
@@ -138,7 +138,7 @@ const handleRemoveSavedWorkout = (id: number) => {
             <p className="text-sm text-[#8A92A0]">
               Minutes
             </p>
-            <span className="text-white">
+            <span className="text-white text-3xl">
               {minutes}
             </span>
           </div>
@@ -147,7 +147,7 @@ const handleRemoveSavedWorkout = (id: number) => {
             <p className="text-sm text-[#8A92A0]">
               Calories
             </p>
-            <span className="text-white">
+            <span className="text-white text-3xl">
               {calories}
             </span>
           </div>
