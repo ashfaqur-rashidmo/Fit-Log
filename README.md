@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FITLOG
 
-## Getting Started
+FITLOG is a modern workout library and planning web application that helps users browse exercises, view detailed workout information, build today's workout plan, and save exercises for later.
 
-First, run the development server:
+## 🔗 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[Live Website](https://fit-log-next-app.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- React Icons
+- React Toastify
+- Context API
+- REST API
+- Next.js Image Optimization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+### 1. 🏋️ Workout Library
 
-To learn more about Next.js, take a look at the following resources:
+Browse a collection of workouts with useful information such as:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Workout name
+- Muscle groups
+- Equipment
+- Difficulty
+- Duration
+- Calories burned
+- Rating
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. 📋 Workout Details
 
-## Deploy on Vercel
+View detailed information about each workout, including:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Workout image
+- Description
+- Muscle groups
+- Equipment
+- Difficulty
+- Sets and reps
+- Duration
+- Calories
+- Rating
+- Step-by-step instructions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. 📅 Today's Workout Plan
+
+Users can add workouts to **Today's Plan** and manage their selected exercises from the My Plan page.
+
+The plan automatically displays:
+
+- Total exercises
+- Total workout minutes
+- Total calories
+
+Users can also remove workouts from the plan.
+
+### 4. 💾 Save Workouts for Later
+
+Users can save workouts that they want to revisit later.
+
+The **Saved** section provides a separate list of saved workouts with their:
+
+- Duration
+- Calories
+- Rating
+- Workout details
+
+### 5. 📊 My Plan Dashboard
+
+The My Plan page provides separate **Today's Plan** and **Saved** tabs.
+
+Users can:
+
+- Switch between Today's Plan and Saved workouts
+- View workout statistics
+- Sort workouts
+- View workout details
+- Mark workouts as completed
+- Remove workouts
+- Track plan and saved item counts from the navbar
+
+## 📁 Project Structure
+
+```text
+src/
+├── app/
+│   ├── page.tsx
+│   ├── My-Plan/
+│   │   └── page.tsx
+│   └── Workouts/
+│       └── [id]/
+│           └── page.tsx
+│
+├── components/
+│   ├── Navbar/
+│   ├── Footer/
+│   ├── Banner/
+│   ├── PlanCard/
+│   └── Buttons/
+│       ├── AddToPlanButton/
+│       └── AddToSaveButton/
+│
+├── Context/
+│   └── PlanContext.tsx
+│
+└── types/
+    └── JymCardTypes.ts
